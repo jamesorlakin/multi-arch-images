@@ -42,7 +42,7 @@ jobs:
           distribution: ubuntu18.04
           run: |
             apt update
-            apt install -y make git curl
+            apt install -y make git curl docker.io
             git clone --depth 1 ${VERSION} https://github.com/xunholy/istio.git istio
             cd istio
             make docker
