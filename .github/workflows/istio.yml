@@ -35,42 +35,11 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # - uses: uraimo/run-on-arch-action@v1.0.5
-      #   id: runcmd
-      #   with:
-      #     architecture: armv7
-      #     distribution: ubuntu18.04
-      #     run: |
-      #       uname -a
-      #       docker buildx build \
-      #         --platform linux/amd64,linux/arm64,linux/arm/v7 \
-      #         --build-arg=VERSION=${{ env.VERSION }} \
-      #         --tag raspbernetes/istio:${{ github.sha }} \
-      #         -f ./build/istio/Dockerfile \
-      #         ./build/istio/ \
-      #         --push
-      #       echo ::set-output name=uname::$(uname -a)
-
-      - name: Build Container Image
-        if: github.ref != 'refs/heads/master'
-        run: |
-          docker buildx build \
-            --platform linux/amd64,linux/arm64,linux/arm/v7 \
-            --build-arg=VERSION=${{ env.VERSION }} \
-            --tag raspbernetes/istio:${{ github.sha }} \
-            -f ./build/istio/Dockerfile \
-            ./build/istio/ \
-            --push
-
-      - name: Build Container Image
-        if: github.ref == 'refs/heads/master'
-        run: |
-          docker buildx build \
-            --platform linux/amd64,linux/arm64,linux/arm/v7 \
-            --build-arg=VERSION=${{ env.VERSION }} \
-            --tag raspbernetes/istio:latest \
-            --tag raspbernetes/istio:${{ env.VERSION }} \
-            --tag k8sathome/istio:${{ env.VERSION }} \
-            -f ./build/istio/Dockerfile \
-            ./build/istio/ \
-            --push
+      - uses: uraimo/run-on-arch-action@v1.0.5
+        id: runcmd
+        with:
+          architecture: armv7
+          distribution: ubuntu18.04
+          run: |
+            git clone --depth 1 ${VERSION} https://github.com/xunholy/istio.git .
+            make docker
