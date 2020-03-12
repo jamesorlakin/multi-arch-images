@@ -48,6 +48,11 @@ jobs:
           curl -sL https://api.github.com/repos/weaveworks/kured/releases/latest | \
           jq -r ".tag_name" > build/kured/.version
 
+      - name: Fetch istio release version
+        run: |
+          curl -sL https://api.github.com/repos/weaveworks/kured/releases/latest | \
+          jq -r ".tag_name" > build/kured/.version
+
       - name: Fetch apcupsd-exporter latest git SHA (no version)
         run: |
           curl -sL https://api.github.com/repos/mdlayher/apcupsd_exporter/commits | \
