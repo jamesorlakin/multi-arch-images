@@ -41,6 +41,7 @@ jobs:
           architecture: armv7
           distribution: ubuntu18.04
           run: |
-            apt-get install -y --no-install-recommends git make
+            apt update
+            apt install -y make git curl
             git clone --depth 1 ${VERSION} https://github.com/xunholy/istio.git .
             make docker
