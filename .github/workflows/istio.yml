@@ -35,6 +35,22 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      # - uses: uraimo/run-on-arch-action@v1.0.5
+      #   id: runcmd
+      #   with:
+      #     architecture: armv7
+      #     distribution: ubuntu18.04
+      #     run: |
+      #       uname -a
+      #       docker buildx build \
+      #         --platform linux/amd64,linux/arm64,linux/arm/v7 \
+      #         --build-arg=VERSION=${{ env.VERSION }} \
+      #         --tag raspbernetes/istio:${{ github.sha }} \
+      #         -f ./build/istio/Dockerfile \
+      #         ./build/istio/ \
+      #         --push
+      #       echo ::set-output name=uname::$(uname -a)
+
       - name: Build Container Image
         if: github.ref != 'refs/heads/master'
         run: |

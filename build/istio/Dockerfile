@@ -6,7 +6,7 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     STATIC=0 
 
-RUN apk add --no-cache git make
+RUN apk add --no-cache git make bash
 
 WORKDIR /go/src/github.com/istio/istio
 
