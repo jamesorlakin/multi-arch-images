@@ -43,5 +43,6 @@ jobs:
           run: |
             apt update
             apt install -y make git curl
-            git clone --depth 1 ${VERSION} https://github.com/xunholy/istio.git .
+            git clone --depth 1 ${VERSION} https://github.com/xunholy/istio.git istio
+            cd istio
             make docker
