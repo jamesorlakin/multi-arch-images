@@ -52,6 +52,11 @@ jobs:
         run: |
           curl -sL https://api.github.com/repos/mdlayher/apcupsd_exporter/commits | \
           jq -r '.[0] .sha' > build/apcupsd-exporter/.version
+      
+      - name: Fetch descheduler release version
+        run: |
+          curl -sL https://api.github.com/repos/kubernetes-sigs/descheduler/releases/latest | \
+          jq -r ".tag_name" > build/descheduler/.version
 
       - name: Check for modified files
         id: git-check
