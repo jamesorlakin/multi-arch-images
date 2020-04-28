@@ -17,12 +17,12 @@ RUN export GOOS=$(echo ${TARGETPLATFORM} | cut -d / -f1) && \
     go mod init && \
     go build -mod=mod -o velero-plugin-for-gcp ./velero-plugin-for-gcp
 
-FROM ubuntu:bionic
+FROM alpine:3.11
 
 WORKDIR /plugins
 
-COPY --from=build /go/src/github.com/vmware-tanzu/velero-plugin-for-gcp/velero-plugin-for-gcp /plugins/
+RUN apk add --no-cache bash ca-certificates && update-ca-certificates
 
-USER nobody:nogroup
+COPY --from=build /go/src/github.com/vmware-tanzu/velero-plugin-for-gcp/velero-plugin-for-gcp /plugins/
 
 ENTRYPOINT ["/bin/bash", "-c", "cp /plugins/* /target/."]
