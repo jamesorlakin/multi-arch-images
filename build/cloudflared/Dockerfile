@@ -5,7 +5,7 @@ ARG TARGETPLATFORM
 ENV GO111MODULE=on \
     CGO_ENABLED=0
 
-RUN apk add --no-cache git make
+RUN apk add --no-cache git make bind-tools curl
 
 WORKDIR /go/src/github.com/cloudflare/cloudflared/
 
